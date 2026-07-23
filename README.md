@@ -102,8 +102,12 @@ echo "--> Updating package list..."
 sudo apt-get update
 
 # 2. Install NGINX
-echo "--> Installing NGINX..."
-sudo apt-get install -y nginx
+if ! command -v nginx &> /dev/null; then
+    echo "--> Installing NGINX..."
+    sudo apt-get install -y nginx
+else
+    echo "NGINX is already installed."
+fi
 
 # 3. Install Node.js (v20 LTS)
 echo "--> Installing Node.js..."
@@ -115,8 +119,12 @@ else
 fi
 
 # 4. Install PM2
-echo "--> Installing PM2 (Process Manager)..."
-sudo npm install -g pm2
+if ! command -v pm2 &> /dev/null; then
+    echo "--> Installing PM2 (Process Manager)..."
+    sudo npm install -g pm2
+else
+    echo "PM2 is already installed."
+fi
 
 # 5. Start Backend
 echo "--> Setting up Backend..."
